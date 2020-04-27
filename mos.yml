@@ -1,0 +1,35 @@
+author: mongoose-os
+description: A JS-enabled demo Mongoose OS firmware
+# arch: PLATFORM
+version: 1.0
+manifest_version: 2017-05-18
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+config_schema:
+  # - ["mqtt.server", "iot.eclipse.org:1883"]
+  # - ["i2c.enable", true]
+  - ["app", "o", {title: "Vallox Ventilation Control Unit"}]
+  - ["app.pin", "i", 16, {title: "GPIO the LC-LM358-PWM2V is attached to"}]
+  - ["app.frq", "i", 1500, {title: "PWM frquency for the LC-LM358-PWM2V input"}]
+  - ["app.duty", "d", 0.5, {title: "PWM duty for the LC-LM358-PWM2V input"}]
+
+tags:
+  - js
+  - c
+
+sources:
+  - src
+
+filesystem:
+  - fs
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/boards
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/wifi
+  - origin: https://github.com/mongoose-os-libs/pwm
+  - origin: https://github.com/mongoose-os-libs/mjs
