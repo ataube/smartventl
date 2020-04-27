@@ -1,5 +1,5 @@
-author: mongoose-os
-description: A JS-enabled demo Mongoose OS firmware
+author: Andreas Taube
+description: Smart Ventilation - ValloPlus 350 SC L
 # arch: PLATFORM
 version: 1.0
 manifest_version: 2017-05-18
