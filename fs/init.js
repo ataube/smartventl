@@ -39,17 +39,3 @@ RPC.addHandler('Ventl.Set', function(args) {
 RPC.addHandler('Ventl.Off', function(args) {
   PWM.set(pwmConfig.pin, 0, 0)
 });
-
-// Build in DAC
-RPC.addHandler('Ventl.Set2', function(args) {
-  let step = args.step;
-  if (step < 0 || step > 255) {
-    return { error: 1000, message: 'Bad request' };
-  }
-  print('Calling C my_func:', f(step));
-});
-
-// Build in DAC
-RPC.addHandler('Ventl.Off2', function(args) {
-  print('Disable dac:', f2());
-});
