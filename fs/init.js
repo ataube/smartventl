@@ -9,13 +9,13 @@ let f = ffi('void dac_set(int)');
 let f2 = ffi('void dac_disable()');
 
 let ventl = {
-  step1: 0.37, // 3.7V => 1
-  step2: 0.5, // 5.0V => 2
-  step3: 0.57, // 5.6V
-  step4: 0.66, //6.5V
-  step5: 0.72, // 7.0V => 3
-  step6: 0.81, // 7.9V
-  step7: 0.88 // 8.6V => 4
+  step1: 0.37,  // 3.7V => 1
+  step2: 0.5,   // 5.0V => 2
+  step3: 0.57,  // 5.6V
+  step4: 0.66,  // 6.5V
+  step5: 0.72,  // 7.0V => 3
+  step6: 0.81,  // 7.9V
+  step7: 0.88   // 8.6V => 4
 };
 
 let pwmConfig = {
