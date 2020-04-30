@@ -12,7 +12,7 @@ config_schema:
   # - ["i2c.enable", true]
   - ["app", "o", {title: "Vallox Ventilation Control Unit"}]
   - ["app.pin", "i", 16, {title: "GPIO the LC-LM358-PWM2V is attached to"}]
-  - ["app.frq", "i", 1500, {title: "PWM frquency for the LC-LM358-PWM2V input"}]
+  - ["app.frq", "i", 2000, {title: "PWM frquency for the LC-LM358-PWM2V input"}]
   - ["app.duty", "d", 0.5, {title: "PWM duty for the LC-LM358-PWM2V input"}]
 
 tags:

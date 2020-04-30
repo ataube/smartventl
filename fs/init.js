@@ -5,15 +5,18 @@ load('api_gpio.js');
 load('api_pwm.js');
 load('api_timer.js');
 
-/*
-  0V - 02.5V  => 1
-2.5V - 05.0V  => 2
-5.0V - 07.5V  => 3
-7.5V - 10.0V  => 4
-*/
-
 let f = ffi('void dac_set(int)');
 let f2 = ffi('void dac_disable()');
+
+let ventl = {
+  step1: 0.37, // 3.7V => 1
+  step2: 0.5, // 5.0V => 2
+  step3: 0.57, // 5.6V
+  step4: 0.66, //6.5V
+  step5: 0.72, // 7.0V => 3
+  step6: 0.81, // 7.9V
+  step7: 0.88 // 8.6V => 4
+};
 
 let pwmConfig = {
   pin: Cfg.get('app.pin'),
