@@ -21,24 +21,24 @@ let ventlSteps = [
   { step: 5, duty: 0.72 },  // 7.0V => 3
   { step: 6, duty: 0.81 },  // 7.9V
   { step: 7, duty: 0.88 }   // 8.6V => 4
-]
+];
 
-function getDuty(step) {
-  const s = ventlSteps.find(function(s) {
-    return s.step === step;
-  })
-  if (s) {
-    return s.duty;
+let getDuty = function(step) {
+  for (let i = 0; i < ventlSteps.length; i++) {
+    if (ventlSteps[i].step === step) {
+      return ventlSteps[i].duty;
+    }
   }
   return ventlSteps[0].duty;
-}
+};
 
 let state = {
   step: 2,
   bypass: 'off'
-}
+};
 
 print('PWM Config', JSON.stringify(pwmConfig));
+print('Init state', JSON.stringify(state));
 
 PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(state.step));
 
