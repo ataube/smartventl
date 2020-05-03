@@ -35,7 +35,7 @@ let state = {
 };
 
 print('PWM Config', JSON.stringify(pwmConfig));
-print('Init state', JSON.stringify(state));
+print('Init State', JSON.stringify(state));
 
 PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(state.step));
 
