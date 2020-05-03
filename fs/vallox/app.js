@@ -8,10 +8,10 @@ function post(url, body) {
     req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     req.addEventListener('abort', () => {
       reject(new Error('Request aborted'));
-    })
+    });
     req.addEventListener('error', () => {
       reject(new Error('Request error'));
-    })
+    });
     req.onload = function () {
       if (req.status !== 200) {
         return reject(new Error('Request error', req.statusText));
@@ -87,9 +87,9 @@ class VentilationStepList {
 
   async onStepButtonClick(event) {
     try {
-      await apiClient.setVentilatorSpeed(event.props.id)
+      await apiClient.setVentilatorSpeed(event.props.id);
       this.setState({ ventlSpeed: event.props.id });
-    } catch(err) {
+    } catch (err) {
       alert('Error setting ventilator state');
     }
   }
@@ -107,9 +107,7 @@ class VentilationStepList {
 
 async function init() {
   const steps = new VentilationStepList(
-    {
-      ventlSpeed: 0,
-    },
+    {},
     document.getElementById('ventilator-steps')
   );
 
