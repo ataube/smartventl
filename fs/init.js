@@ -5,9 +5,6 @@ load('api_gpio.js');
 load('api_pwm.js');
 load('api_timer.js');
 
-let f = ffi('void dac_set(int)');
-let f2 = ffi('void dac_disable()');
-
 let pwmConfig = {
   pin: Cfg.get('app.pin'),
   frq: Cfg.get('app.frq'),
