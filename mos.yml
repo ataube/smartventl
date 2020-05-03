@@ -8,6 +8,9 @@ modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
 
 config_schema:
+  # - ["http.listen_addr", "443"]
+  # - ["http.ssl_key", "key.pem"]
+  # - ["http.ssl_cert", "cert.pem"]
   - ["http.auth_domain", "ventl"]
   - ["http.auth_file", "rpc_auth.txt"]
   - ["rpc.auth_domain", "ventl"]
