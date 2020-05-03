@@ -8,6 +8,11 @@ modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
 
 config_schema:
+  - ["http.auth_domain", "ventl"]
+  - ["http.auth_file", "rpc_auth.txt"]
+  - ["rpc.auth_domain", "ventl"]
+  - ["rpc.auth_file", "rpc_auth.txt"]
+  - ["rpc.acl_file", "rpc_acl.json"]
   - ["app", "o", {title: "Vallox Ventilation Control Unit"}]
   - ["app.pin", "i", 16, {title: "GPIO the LC-LM358-PWM2V is attached to"}]
   - ["app.frq", "i", 2000, {title: "PWM frquency for the LC-LM358-PWM2V input"}]

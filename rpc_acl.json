@@ -1,0 +1,4 @@
+[
+  {"method": "*", "acl": "+admin"},
+  {"method": "*", "acl": "-*"}
+]
