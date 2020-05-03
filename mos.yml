@@ -21,6 +21,7 @@ sources:
 
 filesystem:
   - fs
+  - fs/vallox
 
 libs:
   - origin: https://github.com/mongoose-os-libs/boards
