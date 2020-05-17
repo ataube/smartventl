@@ -10,7 +10,7 @@ mongoose_os_version: ${mos.version}
 config_schema:
   - ["app", "o", {title: "Vallox Ventilation Control Unit"}]
   - ["app.pin", "i", 16, {title: "GPIO the LC-LM358-PWM2V is attached to"}]
-  - ["app.frq", "i", 2000, {title: "PWM frquency for the LC-LM358-PWM2V input"}]
+  - ["app.frq", "i", 2000, {title: "PWM frequency for the LC-LM358-PWM2V input"}]
 
 tags:
   - js
