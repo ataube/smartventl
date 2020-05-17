@@ -73,7 +73,7 @@ class VentilationStepList {
     this.el.querySelectorAll('button').forEach((btnEl, idx) => {
       this.buttons.push(
         new ButtonComp(
-          { id: idx + 1, onClick: this.onStepButtonClick.bind(this) },
+          { id: idx, onClick: this.onStepButtonClick.bind(this) },
           btnEl
         )
       );
