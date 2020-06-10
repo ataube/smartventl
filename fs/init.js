@@ -48,6 +48,11 @@ RPC.addHandler('Ventl.Set', function(args) {
   if (step < 0 || step > 8) {
     return { error: 1000, message: 'Invalid step number, expected value between 1-8' };
   }
+  if (step === 0) {
+    state.power = 'off';
+  } else {
+    state.power = 'on';
+  }
   state.step = step;
   PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(step));
 });
