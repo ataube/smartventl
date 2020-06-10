@@ -8,3 +8,26 @@ TODO
 
 ## Flash ESP32
 `mos flash`
+
+## API
+
+### GetState
+```
+curl -X POST -d '{}' http://IP_ADDR/rpc/Ventl.GetState
+{
+  power: 'on',
+  step: 2,
+  bypass: 'off',
+}
+```
+
+### SetStep
+Step range 0-8. 0 turns power into `off`
+```
+curl -d '{ "step": 1 }' http://IP_ADDR/rpc/Ventl.Set
+```
+
+### OTA Update
+```
+curl -v -F file=@build/fw.zip http://IP_ADDR/update
+```
