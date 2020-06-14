@@ -10,6 +10,10 @@ let pwmConfig = {
   frq: Cfg.get('app.frq'),
 };
 
+let bypassConfig = {
+  pin: Cfg.get('app.pin2'),
+};
+
 let ventlSteps = [
   { step: 0, duty: 0 },     // 0V => off
   { step: 1, duty: 0.37 },  // 3.7V => 1
@@ -38,9 +42,11 @@ let state = {
 };
 
 print('PWM Config', JSON.stringify(pwmConfig));
+print('Bypass Config', JSON.stringify(bypassConfig));
 print('Init State', JSON.stringify(state));
 
 PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(state.step));
+GPIO.setup_output(bypassConfig.pin, 0);
 
 RPC.addHandler('Ventl.Set', function(args) {
   let step = args.step;
@@ -55,6 +61,7 @@ RPC.addHandler('Ventl.Set', function(args) {
   }
   state.step = step;
   PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(step));
+  return { result: state };
 });
 
 RPC.addHandler('Ventl.GetState', function(args) {
@@ -65,6 +72,7 @@ RPC.addHandler('Ventl.Off', function(args) {
   PWM.set(pwmConfig.pin, 0, 0);
   state.power = 'off';
   state.step = 0;
+  return { result: state };
 });
 
 RPC.addHandler('Ventl.On', function(args) {
@@ -72,4 +80,17 @@ RPC.addHandler('Ventl.On', function(args) {
   PWM.set(pwmConfig.pin, pwmConfig.frq, getDuty(step));
   state.power = 'on';
   state.step = step;
+  return { result: state };
+});
+
+RPC.addHandler('Bypass.On', function(args) {
+  state.bypass = 'on';
+  GPIO.write(bypassConfig.pin, 1);
+  return { result: state };
+});
+
+RPC.addHandler('Bypass.Off', function(args) {
+  state.bypass = 'off';
+  GPIO.write(bypassConfig.pin, 0);
+  return { result: state };
 });
