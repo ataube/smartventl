@@ -11,7 +11,7 @@ TODO
 
 ## API
 
-### GetState
+### Get State
 ```
 curl -X POST -d '{}' http://IP_ADDR/rpc/Ventl.GetState
 {
@@ -21,10 +21,15 @@ curl -X POST -d '{}' http://IP_ADDR/rpc/Ventl.GetState
 }
 ```
 
-### SetStep
+### Set Step
 Step range 0-8. 0 turns power into `off`
 ```
 curl -d '{ "step": 1 }' http://IP_ADDR/rpc/Ventl.Set
+```
+
+### Toggle Bypass
+```
+curl -d '{}' http://IP_ADDR/rpc/Bypass.Toggle
 ```
 
 ### OTA Update

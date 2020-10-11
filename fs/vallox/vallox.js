@@ -32,8 +32,11 @@ const apiClient = {
     return post(baseUrl + '/rpc/Ventl.GetState').then((res) => res.result);
   },
   setVentilatorSpeed: (speed) => {
-    return post(baseUrl + '/rpc/Ventl.Set', { step: speed });
+    return post(baseUrl + '/rpc/Ventl.Set', { step: speed }).then((res) => res.result);
   },
+  toggleBypass: () => {
+    return post(baseUrl + '/rpc/Bypass.Toggle', {}).then((res) => res.result);
+  }
 };
 
 class ButtonComp {
@@ -90,6 +93,7 @@ class VentilationStepList {
       await apiClient.setVentilatorSpeed(event.props.id);
       this.setState({ ventlSpeed: event.props.id });
     } catch (err) {
+      console.error('Error setting ventilator state', err);
       alert('Error setting ventilator state');
     }
   }
@@ -105,15 +109,57 @@ class VentilationStepList {
   }
 }
 
+class BypassSection {
+  constructor(props, el) {
+    this.state = {
+      bypass: props.bypass // on | off
+    }
+    this.el = el;
+    this.button = new ButtonComp(
+      { id: 'btn-bypass', onClick: this.onBypassClick.bind(this) },
+      el.querySelectorAll('#btn-bypass')[0]
+    );
+  }
+
+  setState(newState) {
+    this.state = Object.assign({}, this.state, newState);
+    this.render();
+  }
+
+  async onBypassClick(event) {
+    try {
+      const result = await apiClient.toggleBypass();
+      this.setState({ bypass: result.bypass });      
+    } catch (err) {
+      console.error('Error setting bypass', err);
+      alert('Error setting Bypass');
+    }
+  }
+
+  render() {
+    if (this.state.bypass === 'on') {
+      this.button.setState({ active: true })
+    } else {
+      this.button.setState({ active: false })
+    }
+  }
+}
+
 async function init() {
   const steps = new VentilationStepList(
     {},
     document.getElementById('ventilator-steps')
   );
 
+  const bypass = new BypassSection(
+    {}, 
+    document.getElementById('bypass-section')
+  );
+
   try {
     const state = await apiClient.getState();
     steps.setState({ ventlSpeed: state.step });
+    bypass.setState({ bypass: state.bypass });
   } catch (err) {
     alert('Error fetching ventilator state');
   }

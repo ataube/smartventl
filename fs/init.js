@@ -26,6 +26,12 @@ let ventlSteps = [
   { step: 8, duty: 1 }      // 10V
 ];
 
+let state = {
+  power: 'on',
+  step: 2,
+  bypass: 'off',
+};
+
 let getDuty = function(step) {
   for (let i = 0; i < ventlSteps.length; i++) {
     if (ventlSteps[i].step === step) {
@@ -35,10 +41,15 @@ let getDuty = function(step) {
   return ventlSteps[2].duty;
 };
 
-let state = {
-  power: 'on',
-  step: 2,
-  bypass: 'off',
+let setBypass = function(val) {
+  let level = 0;
+  let newState = 'off';
+  if (val === 'on') {
+    level = 1;
+    newState = 'on';
+  }
+  GPIO.write(bypassConfig.pin, level);
+  state.bypass = newState;
 };
 
 print('PWM Config', JSON.stringify(pwmConfig));
@@ -84,13 +95,22 @@ RPC.addHandler('Ventl.On', function(args) {
 });
 
 RPC.addHandler('Bypass.On', function(args) {
-  state.bypass = 'on';
-  GPIO.write(bypassConfig.pin, 1);
+  setBypass('on');
   return { result: state };
 });
 
 RPC.addHandler('Bypass.Off', function(args) {
-  state.bypass = 'off';
-  GPIO.write(bypassConfig.pin, 0);
+  setBypass('off');
+  return { result: state };
+});
+
+RPC.addHandler('Bypass.Toggle', function(args) {
+  let newVal;
+  if (state.bypass === 'off') {
+    newVal = 'on';
+  } else {
+    newVal = 'off';
+  }
+  setBypass(newVal);
   return { result: state };
 });
